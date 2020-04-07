@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+}
+
+group 'com.s2u2m.examples'
+version '1.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+repositories {
+    maven {url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+    mavenCentral()
+}
+
+//plugins {
+//    id "io.freefair.lombok" version "5.0.0-rc6"
+//}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    annotationProcessor 'org.projectlombok:lombok:1.18.2'
+    compileOnly 'org.projectlombok:lombok:1.18.2'
+    testCompileOnly 'org.projectlombok:lombok:1.18.12'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
+}
