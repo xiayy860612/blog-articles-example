@@ -1,0 +1,18 @@
+@startuml
+
+database Db
+control scheduler
+queue AirflowPools
+control CeleryExecutor
+queue CeleryQueue
+control Worker
+
+scheduler --> Db: get no status tasks
+scheduler --> AirflowPools: dispatch tasks
+AirflowPools --> AirflowPools: dispatch tasks by task priority_weight
+CeleryExecutor --> AirflowPools: get high priority_weight tasks
+CeleryExecutor --> CeleryQueue: dispatch tasks
+Worker --> CeleryQueue: get tasks
+Worker --> Worker: execute tasks
+
+@enduml

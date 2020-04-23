@@ -3,3 +3,10 @@
 # Java
 *.iml
 target
+
+# python
+*.pyc
+
+# others
+.gradle/
+gradle/
