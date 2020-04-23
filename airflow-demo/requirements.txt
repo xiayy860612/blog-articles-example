@@ -1,0 +1,8 @@
+apache-airflow==1.10.3
+Flask==1.0.4
+mysqlclient
+apache-airflow[mysql]
+apache-airflow[rabbitmq]
+flower
+celery
+apache-airflow[celery]

@@ -1,0 +1,42 @@
+version: "3.7"
+
+services:
+  mysql:
+    image: mysql:5.7
+    command: --explicit_defaults_for_timestamp=1
+    environment:
+      MYSQL_DATABASE: airflow-demo
+      MYSQL_ROOT_PASSWORD: airflow
+    ports:
+      - "3306:3306"
+    networks:
+      - airflow-demo-net
+
+  rabbitmq:
+    image: rabbitmq:3.7-management
+    environment:
+      RABBITMQ_DEFAULT_USER: airflow
+      RABBITMQ_DEFAULT_PASS: airflow
+      RABBITMQ_DEFAULT_VHOST: airflow-demo-vhost
+    ports:
+#      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - airflow-demo-net
+
+  init-db:
+    image: ${AIRFLOW_DOCKER}
+    volumes:
+      - ./airflow.cfg:${AIRFLOW_WORKSPACE}/airflow.cfg
+      - ./init_airflow_db.py:${AIRFLOW_WORKSPACE}/init_airflow_db.py
+    command: ["python3.6 init_airflow_db.py"]
+    networks:
+      - airflow-demo-net
+    depends_on:
+      - mysql
+      - rabbitmq
+
+networks:
+  airflow-demo-net:
+    name: airflow-demo-net
+    driver: bridge
