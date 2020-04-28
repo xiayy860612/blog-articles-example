@@ -31,6 +31,9 @@ public class QuickSort {
         return nums;
     }
 
+    /**
+     * 寻找pivot的位置, 并调整两边值的位置
+     */
     private int partition(int[] nums, int start, int end) {
         int pivot = nums[end];
         int pivotIndex = start;
